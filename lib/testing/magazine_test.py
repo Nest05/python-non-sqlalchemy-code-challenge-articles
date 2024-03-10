@@ -114,12 +114,12 @@ class TestMagazine:
         article_2 = Article(author_1, magazine_1, "Dating life in NYC")
         article_3 = Article(author_1, magazine_2, "2023 Eccentric Design Trends")
 
-        assert len(magazine_1.articles()) == 2
-        assert len(magazine_2.articles()) == 1
-        assert article_1 in magazine_1.articles()
-        assert article_2 in magazine_1.articles()
-        assert article_3 not in magazine_1.articles()
-        assert article_3 in magazine_2.articles()
+        assert len(magazine_1.articles) == 2
+        assert len(magazine_2.articles) == 1
+        assert article_1 in magazine_1.articles
+        assert article_2 in magazine_1.articles
+        assert article_3 not in magazine_1.articles
+        assert article_3 in magazine_2.articles
 
     def test_articles_of_type_articles(self):
         """magazine articles are of type Article"""
