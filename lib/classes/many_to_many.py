@@ -3,22 +3,35 @@ class Article:
         self.author = author
         self.magazine = magazine
         self.title = title
+        author.add_article(self)
         
 class Author:
     def __init__(self, name):
-        self.name = name
+        if not isinstance(name, str):
+            raise Exception("Author name must be a string")
+        if len(name) == 0:
+            raise Exception("Author name cannot be empty")
+        self._name = name
+        self._articles = []
+        self._magazines = []
 
     def articles(self):
-        pass
+        return self._articles
 
     def magazines(self):
-        pass
+        return self._magazines
 
-    def add_article(self, magazine, title):
-        pass
+    def add_article(self, article):
+        self._articles.append(article)
+        if article.magazine not in self._magazines:
+            self._magazines.append(article.magazine)
 
     def topic_areas(self):
         pass
+    
+    @property
+    def name(self):
+        return self._name
 
 class Magazine:
     def __init__(self, name, category):
@@ -36,3 +49,5 @@ class Magazine:
 
     def contributing_authors(self):
         pass
+
+    # pytest lib/testing/author_test.py -x
