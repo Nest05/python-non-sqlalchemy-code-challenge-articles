@@ -1,8 +1,17 @@
 class Article:
     def __init__(self, author, magazine, title):
-        self.author = author
+        self._author = author
         self.magazine = magazine
-        self.title = title
+        self._title = title
+    
+    @property
+    def title(self):
+        return self._title
+
+    @property
+    def author(self):
+        return self._author
+
         
 class Author:
     def __init__(self, name):
@@ -22,9 +31,10 @@ class Author:
 
     def add_article(self, magazine, title):
         article = Article(self, magazine, title)
+        if article not in self._articles:
+            self._articles.append(article)
         if article.magazine not in self._magazines:
             self._magazines.append(article.magazine)
-        self._articles.append(article)
         return article
 
     def topic_areas(self):
@@ -36,19 +46,74 @@ class Author:
 
 class Magazine:
     def __init__(self, name, category):
-        self.name = name
-        self.category = category
+        self._name = name
+        self._category = category
+        self._articles = []
+        self._contributors = set()
 
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, new_name):
+        if isinstance(new_name, str) and 2 <= len(new_name) <= 16:
+            self._name = new_name
+        else:
+            raise Exception("Names must be of type str and between 2 and 16 characters, inclusive")
+
+    @property
+    def category(self):
+        return self._category
+
+    @category.setter
+    def category(self, new_category):
+        if isinstance(new_category, str) and len(new_category) > 0:
+            self._category = new_category
+        else:
+            raise Exception("Categories must be of type str and longer than 0 characters")
+
+    @property
     def articles(self):
-        pass
-
+        return self._articles
+    
+    @property
     def contributors(self):
-        pass
+        return list(self._contributors)
 
     def article_titles(self):
-        pass
+        if len(self._articles) > 0:
+            return [article.title for article in self._articles]
+        else:
+            return None
 
     def contributing_authors(self):
-        pass
+        authors_count = {}
+        for article in self._articles:
+            author = article.author
+            if author in authors_count:
+                authors_count[author] += 1
+            else:
+                authors_count[author] = 1
+
+        contributing_authors = [author for author, count in authors_count.items() if count > 2]
+
+        if len(contributing_authors) > 0:
+            return contributing_authors
+        else:
+            return None
+
+    def publish_article(self, article):
+        if isinstance(article, Article):
+            self._articles.append(article)
+            self._contributors.add(article.author)
+        else:
+            raise Exception("Articles must be of type Article")
+    
+
+
+
 
     # pytest lib/testing/author_test.py -x
+    # pytest lib/testing/magazine_test.py -x
+    # pytest lib/testing/article_test.py -x
