@@ -3,7 +3,6 @@ class Article:
         self.author = author
         self.magazine = magazine
         self.title = title
-        author.add_article(self)
         
 class Author:
     def __init__(self, name):
@@ -21,10 +20,12 @@ class Author:
     def magazines(self):
         return self._magazines
 
-    def add_article(self, article):
-        self._articles.append(article)
+    def add_article(self, magazine, title):
+        article = Article(self, magazine, title)
         if article.magazine not in self._magazines:
             self._magazines.append(article.magazine)
+        self._articles.append(article)
+        return article
 
     def topic_areas(self):
         pass
