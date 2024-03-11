@@ -58,9 +58,9 @@ class TestAuthor:
         author_1 = Author("Carry Bradshaw")
         author_2 = Author("Nathaniel Hawthorne")
         magazine = Magazine("Vogue", "Fashion")
-        article_1 = Article(author_1, magazine, "How to wear a tutu with style")
-        article_2 = Article(author_1, magazine, "Dating life in NYC")
-        article_3 = Article(author_2, magazine, "How to be single and happy")
+        article_1 = author_1.add_article(magazine, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine, "Dating life in NYC")
+        article_3 = author_2.add_article(magazine, "How to be single and happy")
 
         assert len(author_1.articles()) == 2
         assert len(author_2.articles()) == 1
@@ -74,8 +74,8 @@ class TestAuthor:
         author_1 = Author("Carry Bradshaw")
         author_2 = Author("Nathaniel Hawthorne")
         magazine = Magazine("Vogue", "Fashion")
-        Article(author_1, magazine, "How to wear a tutu with style")
-        Article(author_2, magazine, "Dating life in NYC")
+        article_1 = author_1.add_article(magazine, "How to wear a tutu with style")
+        article_2 = author_2.add_article(magazine, "Dating life in NYC")
 
         assert isinstance(author_1.articles()[0], Article)
         assert isinstance(author_2.articles()[0], Article)
@@ -86,8 +86,8 @@ class TestAuthor:
         magazine_1 = Magazine("Vogue", "Fashion")
         magazine_2 = Magazine("AD", "Architecture")
         magazine_3 = Magazine("GQ", "Fashion")
-        Article(author_1, magazine_1, "How to wear a tutu with style")
-        Article(author_1, magazine_2, "2023 Eccentric Design Trends")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
 
         assert magazine_1 in author_1.magazines()
         assert magazine_2 in author_1.magazines()
@@ -100,9 +100,9 @@ class TestAuthor:
         magazine_1 = Magazine("Vogue", "Fashion")
         magazine_2 = Magazine("AD", "Architecture")
         magazine_3 = Magazine("GQ", "Fashion")
-        Article(author_1, magazine_1, "How to wear a tutu with style")
-        Article(author_1, magazine_2, "2023 Eccentric Design Trends")
-        Article(author_2, magazine_3, "How to be single and happy")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
+        article_3 = author_2.add_article(magazine_2, "How to be single and happy")
 
         assert isinstance(author_1.magazines()[0], Magazine)
         assert isinstance(author_1.magazines()[1], Magazine)
@@ -113,9 +113,9 @@ class TestAuthor:
         author_1 = Author("Carry Bradshaw")
         magazine_1 = Magazine("Vogue", "Fashion")
         magazine_2 = Magazine("AD", "Architecture")
-        Article(author_1, magazine_1, "How to wear a tutu with style")
-        Article(author_1, magazine_2, "2023 Eccentric Design Trends")
-        Article(author_1, magazine_2, "Carrara Marble is so 2020")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
+        article_3 = author_1.add_article(magazine_2, "Carrara Marble is so 2020")
 
         assert len(set(author_1.magazines())) == len(author_1.magazines())
         assert len(author_1.magazines()) == 2
@@ -127,12 +127,12 @@ class TestAuthor:
         magazine_2 = Magazine("AD", "Architecture")
         article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
         article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
-        article_3 = author_1.add_article(magazine_2, "Carra Marble is so 2020")
+        article_3 = author_1.add_article(magazine_2, "Carrara Marble is so 2020")
 
         assert isinstance(article_1, Article)
         assert len(author_1.articles()) == 3
-        assert len(magazine_1.articles()) == 1
-        assert len(magazine_2.articles()) == 2
+        assert len(magazine_1.articles) == 1
+        assert len(magazine_2.articles) == 2
         assert article_1 in magazine_1.articles()
         assert article_2 in magazine_2.articles()
         assert article_3 in magazine_2.articles()
