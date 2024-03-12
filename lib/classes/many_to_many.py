@@ -99,9 +99,8 @@ class Magazine:
     def articles(self):
         return self._articles
     
-    @property
-    def contributors(self):
-        return list(self._contributors)
+    # def contributors(self):
+    #     return list(self._contributors)
 
     def article_titles(self):
         if len(self._articles) > 0:
@@ -109,7 +108,7 @@ class Magazine:
         else:
             return None
 
-    def contributing_authors(self):
+    def contributors(self):
         authors_count = {}
         for article in self._articles:
             author = article.author
@@ -118,12 +117,10 @@ class Magazine:
             else:
                 authors_count[author] = 1
 
-        contributing_authors = [author for author, count in authors_count.items() if count > 2]
+        contributors = [author for author, count in authors_count.items() if count > 2]
+ 
+        return contributors
 
-        if len(contributing_authors) > 0:
-            return contributing_authors
-        else:
-            return None
 
     def publish_article(self, article):
         if isinstance(article, Article):

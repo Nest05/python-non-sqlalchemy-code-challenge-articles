@@ -110,25 +110,25 @@ class TestMagazine:
         author_1 = Author("Carry Bradshaw")
         magazine_1 = Magazine("Vogue", "Fashion")
         magazine_2 = Magazine("AD", "Architecture")
-        article_1 = Article(author_1, magazine_1, "How to wear a tutu with style")
-        article_2 = Article(author_1, magazine_1, "Dating life in NYC")
-        article_3 = Article(author_1, magazine_2, "2023 Eccentric Design Trends")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine_1, "Dating life in NYC")
+        article_3 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
 
-        assert len(magazine_1.articles) == 2
-        assert len(magazine_2.articles) == 1
-        assert article_1 in magazine_1.articles
-        assert article_2 in magazine_1.articles
-        assert article_3 not in magazine_1.articles
-        assert article_3 in magazine_2.articles
+        assert len(magazine_1.articles()) == 2
+        assert len(magazine_2.articles()) == 1
+        assert article_1 in magazine_1.articles()
+        assert article_2 in magazine_1.articles()
+        assert article_3 not in magazine_1.articles()
+        assert article_3 in magazine_2.articles()
 
     def test_articles_of_type_articles(self):
         """magazine articles are of type Article"""
         author_1 = Author("Carry Bradshaw")
         magazine_1 = Magazine("Vogue", "Fashion")
         magazine_2 = Magazine("AD", "Architecture")
-        Article(author_1, magazine_1, "How to wear a tutu with style")
-        Article(author_1, magazine_1, "Dating life in NYC")
-        Article(author_1, magazine_2, "2023 Eccentric Design Trends")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_1.add_article(magazine_1, "Dating life in NYC")
+        article_2 = author_1.add_article(magazine_2, "2023 Eccentric Design Trends")
 
         assert isinstance(magazine_1.articles()[0], Article)
         assert isinstance(magazine_1.articles()[1], Article)
@@ -139,8 +139,8 @@ class TestMagazine:
         author_1 = Author("Carry Bradshaw")
         author_2 = Author("Nathaniel Hawthorne")
         magazine_1 = Magazine("Vogue", "Fashion")
-        Article(author_1, magazine_1, "How to wear a tutu with style")
-        Article(author_2, magazine_1, "Dating life in NYC")
+        article_1 = author_1.add_article(magazine_1, "How to wear a tutu with style")
+        article_2 = author_2.add_article(magazine_1, "Dating life in NYC")
 
         assert len(magazine_1.contributors()) == 2
         assert author_1 in magazine_1.contributors()
