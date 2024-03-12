@@ -131,8 +131,11 @@ class TestAuthor:
 
         assert isinstance(article_1, Article)
         assert len(author_1.articles()) == 3
-        assert len(magazine_1.articles) == 1
-        assert len(magazine_2.articles) == 2
+        assert len(magazine_1.articles()) == 1
+        assert len(magazine_2.articles()) == 2
+        assert article_1 in author_1.articles()
+        assert article_2 in author_1.articles()
+        assert article_3 in author_1.articles()
         assert article_1 in magazine_1.articles()
         assert article_2 in magazine_2.articles()
         assert article_3 in magazine_2.articles()
@@ -148,8 +151,8 @@ class TestAuthor:
         author_2.add_article(magazine_2, "2023 Eccentric Design Trends")
 
         assert len(author_1.topic_areas()) == 2
-        assert set(author_1.topic_areas()) == {"Fashion", "Architecture"}
-        assert author_2.topic_areas() == ["Architecture"]
+        assert set(author_1.topic_areas()) == {"Vogue", "AD"}
+        assert author_2.topic_areas() == ["AD"]
 
     def test_topic_areas_are_unique(self):
         """topic areas are unique"""
@@ -163,6 +166,6 @@ class TestAuthor:
 
         assert len(set(author_1.topic_areas())) == len(author_1.topic_areas())
         assert len(author_1.topic_areas()) == 2
-        assert "Fashion" in author_1.topic_areas()
-        assert "Architecture" in author_1.topic_areas()
+        assert "Vogue" in author_1.topic_areas()
+        assert "AD" in author_1.topic_areas()
         assert author_2.topic_areas() is None

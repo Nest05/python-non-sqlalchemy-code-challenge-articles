@@ -47,13 +47,18 @@ class Author:
             self._articles.append(article)
         if article.magazine not in self._magazines:
             self._magazines.append(article.magazine)
+
+        magazine.add_article(article)
         return article
 
     def topic_areas(self):
         topics = set()
         for article in self._articles:
             topics.add(article.magazine.name)
-        return list(topics)
+        if len(topics) == 0:
+            return None
+        else:
+            return list(topics)
     
     @property
     def name(self):
@@ -88,14 +93,9 @@ class Magazine:
         else:
             raise Exception("Categories must be of type str and longer than 0 characters")
    
-    def add_article(self, magazine, title):
-        article = Article(self, magazine, title)
-        if article not in self._articles:
-            self._articles.append(article)
-        if article.magazine not in self._magazines:
-            self._magazines.append(article.magazine)
-        return article
-   
+    def add_article(self, article):
+        self._articles.append(article)
+        
     def articles(self):
         return self._articles
     
